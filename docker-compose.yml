@@ -1,0 +1,43 @@
+version: "3.1"
+services:
+
+  redis:
+    image: redis:alpine
+    container_name: dash-button-redis
+
+  mysql:
+    image: mysql:8.0
+    container_name: dash-button-mysql
+    working_dir: /application
+    volumes:
+      - .:/application
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=dash
+      - MYSQL_USER=dash
+      - MYSQL_PASSWORD=dash
+    ports:
+      - "8002:3306"
+
+  webserver:
+    image: nginx:alpine
+    container_name: dash-button-webserver
+    working_dir: /application
+    volumes:
+      - .:/application
+      - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8000:80"
+
+  php-fpm:
+    build: phpdocker/php-fpm
+    container_name: dash-button-php-fpm
+    working_dir: /application
+    volumes:
+      - .:/application
+      - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
+
+  mailcatcher:
+    image: schickling/mailcatcher:latest
+    ports:
+      - "1080:1080"
