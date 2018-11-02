@@ -11,6 +11,7 @@ services:
     working_dir: /application
     volumes:
       - .:/application
+      - ./phpdocker/mysql/mysql-override.cnf:/etc/mysql/conf.d/mysql-override.cnf
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=dash
@@ -39,5 +40,6 @@ services:
 
   mailcatcher:
     image: schickling/mailcatcher:latest
+    container_name: dash-button-mailcatcher
     ports:
       - "1080:1080"

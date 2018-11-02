@@ -35,4 +35,10 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'zenaton' => [
+        'app_id' => env('ZENATON_APP_ID'),
+        'api_token' => env('ZENATON_API_TOKEN'),
+        'app_env' => env('ZENATON_APP_ENV'),
+    ],
+
 ];

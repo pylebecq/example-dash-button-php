@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Zenaton\Client;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Client::init(config('services.zenaton.app_id'), config('services.zenaton.api_token'), config('services.zenaton.app_env'));
     }
 
     /**
