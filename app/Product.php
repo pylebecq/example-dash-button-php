@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property int $price
  */
-class Product extends Model
+final class Product extends Model
 {
     //
 }

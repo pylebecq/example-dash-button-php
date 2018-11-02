@@ -11,7 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $name
  * @property string $password
  */
-class User extends Authenticatable
+final class User extends Authenticatable
 {
     use Notifiable;
 

@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int $quantity
  * @property int $total
  */
-class OrderItem extends Model
+final class OrderItem extends Model
 {
     public function getTotalAttribute(): int
     {

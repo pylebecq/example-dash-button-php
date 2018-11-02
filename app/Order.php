@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property User $user
  * @property int $user_id
  */
-class Order extends Model
+final class Order extends Model
 {
     public const STATUS_PENDING_PAYMENT = 1;
     public const STATUS_PAYMENT_REJECTED = 2;
