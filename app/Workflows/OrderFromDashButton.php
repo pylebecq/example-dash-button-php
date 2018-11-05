@@ -4,7 +4,7 @@ namespace App\Workflows;
 
 use App\Events\OrderPaid;
 use App\Order;
-use App\Tasks\AskForNewPaymentDetails;
+use App\Tasks\AskForNewPaymentInformation;
 use App\Tasks\CancelOrder;
 use App\Tasks\ChargeCustomerForOrder;
 use App\Tasks\SendOrderInvoice;
@@ -29,8 +29,8 @@ final class OrderFromDashButton implements WorkflowInterface
         $charged = (new ChargeCustomerForOrder($this->order))->execute();
         $event = null;
         if (!$charged) {
-            // We could not charge the customer using it's saved payment details, let's ask for new ones
-            (new AskForNewPaymentDetails($this->order))->dispatch();
+            // We could not charge the customer using saved payment information
+            (new AskForNewPaymentInformation($this->order))->dispatch();
             $event = (new Wait(OrderPaid::class))->days(14)->execute();
         }
 
@@ -40,6 +40,7 @@ final class OrderFromDashButton implements WorkflowInterface
             (new SendOrderInvoice($this->order))->dispatch();
             (new SendOrderToShipping($this->order))->dispatch();
         } else {
+            // User did not update payment information within 14 days, we need to cancel the order :(
             (new CancelOrder($this->order))->dispatch();
         }
     }

@@ -5,7 +5,7 @@ namespace App\Mail;
 use App\Order;
 use Illuminate\Mail\Mailable;
 
-final class AskForNewPaymentDetails extends Mailable
+final class AskForNewPaymentInformation extends Mailable
 {
     /** @var Order */
     private $order;

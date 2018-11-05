@@ -2,14 +2,14 @@
 
 namespace App\Tasks;
 
-use App\Mail\AskForNewPaymentDetails as AskForNewPaymentDetailsMail;
+use App\Mail\AskForNewPaymentInformation as AskForNewPaymentInformationMail;
 use App\Order;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Zenaton\Interfaces\TaskInterface;
 use Zenaton\Traits\Zenatonable;
 
-final class AskForNewPaymentDetails implements TaskInterface
+final class AskForNewPaymentInformation implements TaskInterface
 {
     use Zenatonable;
 
@@ -26,7 +26,7 @@ final class AskForNewPaymentDetails implements TaskInterface
         Log::debug('Asking customer for new payment details using email.');
 
         Mail::to($this->order->user->email)
-            ->send(new AskForNewPaymentDetailsMail($this->order))
+            ->send(new AskForNewPaymentInformationMail($this->order))
         ;
     }
 }
