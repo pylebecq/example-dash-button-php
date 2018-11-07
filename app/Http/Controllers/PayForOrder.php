@@ -37,6 +37,6 @@ final class PayForOrder extends Controller
             }
         }
 
-        return view('order.payment', ['order' => $order]);
+        return view('order.payment', ['order' => $order, 'error' => (isset($charged) ? !$charged : false)]);
     }
 }
